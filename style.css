@@ -1,0 +1,418 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;600&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Fira Sans', 'Malgun Gothic', sans-serif; background: #f4f4f4; color: #333; }
+
+/* 배경 이미지 */
+body::before {
+  content:""; position:fixed; inset:0;
+  background:url('school_bg.jpg') center/cover no-repeat;
+  opacity: .1; z-index:-1; pointer-events:none;
+}
+
+/* =========================================
+   1. 상단 헤더 (메가 메뉴 스타일 수정)
+   ========================================= */
+.top-header {
+  background: #1a1a1a;
+  color: #fff;
+  height: 60px;
+  position: relative;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* ★중요: 여기가 모든 메뉴 위치의 기준점이 됩니다 */
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: relative; 
+}
+
+/* 브랜드 로고 */
+.brand {
+  display: flex; align-items: center;
+  font-weight: 700; font-size: 18px; color: #fff;
+  text-decoration: none; margin-right: 40px;
+}
+.brand img { height: 32px; margin-right: 10px; border-radius: 50%; }
+
+/* 네비게이션 영역 */
+.top-nav {
+  flex: 1; height: 100%; display: flex;
+}
+
+/* 개별 메뉴 그룹 (본관, 후관 등) */
+/* ★중요: position:static으로 설정하여 자식 메뉴가 이 버튼이 아닌 
+   부모(.nav-container)를 기준으로 위치를 잡게 합니다 */
+.nav-group {
+  position: static; 
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav-title {
+  padding: 0 20px;
+  height: 100%;
+  display: flex; align-items: center;
+  font-size: 15px; font-weight: 600;
+  cursor: pointer; color: #ccc;
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-title:hover, 
+.nav-group:hover .nav-title {
+  color: #fff; background: #333;
+}
+
+/* ★중요: 메가 메뉴 패널 */
+.mega-menu {
+  display: none; /* 평소엔 숨김 */
+  position: absolute;
+  top: 60px;       /* 헤더 높이만큼 띄움 */
+  left: 0;         /* 컨테이너의 맨 왼쪽 정렬 */
+  width: 100%;     /* 컨테이너 전체 너비 사용 */
+  background: rgba(40, 40, 40, 0.98);
+  padding: 30px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  border-top: 3px solid #00b894; /* 포인트 컬러 */
+  z-index: 2000;
+  
+  /* 내부 배치 */
+  gap: 30px;
+  border-radius: 0 0 8px 8px;
+}
+
+/* 호버 시 표시 */
+.nav-group:hover .mega-menu {
+  display: flex;
+}
+
+/* 층별 컬럼 */
+.floor-column {
+  flex: 1;
+  min-width: 150px;
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.floor-title {
+  color: #00b894;
+  font-size: 14px; font-weight: bold;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 5px;
+}
+
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 한 줄에 2개씩 */
+  gap: 8px;
+}
+
+.nav-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #ddd;
+  text-align: left;
+  padding: 6px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
+.nav-btn.active { background: #00b894; color: #fff; font-weight: bold; }
+
+/* 검색창 */
+.search-box input {
+  background: #333; border: 1px solid #444;
+  padding: 8px 15px; border-radius: 20px;
+  color: #fff; font-size: 13px; width: 220px; outline: none;
+}
+.search-box input:focus { border-color: #00b894; background: #000; }
+
+/* =========================================
+   2. 컨트롤 바
+   ========================================= */
+.control-bar {
+  background: #d5d5d5; border-bottom: 1px solid #ddd;
+  padding: 12px 0; display: flex; justify-content: center;
+}
+.control-bar .control-group {
+  max-width: 1200px; width: 100%;
+  padding: 0 20px; display: flex; align-items: center; gap: 15px;
+}
+.control-bar .right { justify-content: flex-end; width: auto; }
+
+.control-bar label { font-size: 14px; font-weight: 600; color: #555; display:flex; align-items:center; gap:8px;}
+.control-bar input {
+  border: 1px solid #ccc; padding: 6px 10px; border-radius: 4px; font-size: 14px;
+}
+
+.btn-sign {
+  background: #34495e; color: #fff; border: none;
+  padding: 6px 15px; border-radius: 4px; cursor: pointer;
+}
+.direct-btn {
+  background: #fff; border: 1px solid #ccc;
+  padding: 6px 15px; border-radius: 20px; cursor: pointer;
+  font-size: 13px; font-weight: 600; color: #555;
+  transition: all .2s;
+}
+.direct-btn:hover { background: #eee; }
+.direct-btn.active { background: #2c3e50; color: #fff; border-color:#2c3e50; }
+
+/* =========================================
+   3. 메인 종이 영역
+   ========================================= */
+.main-content {
+  padding: 40px 0; min-height: calc(100vh - 110px);
+  display: flex; justify-content: center;
+}
+
+.paper {
+  width: 210mm; /* A4 */
+  min-height: 297mm;
+  background: #fff; padding: 50px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  border-radius: 2px;
+}
+
+.paper-header {
+  border-bottom: 2px solid #333;
+  padding-bottom: 8px; 
+  margin-bottom: 12px;
+}
+
+.paper-header h1 { 
+  font-size: 24px; 
+  color: #000; 
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.header-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+}
+
+.header-right {
+  text-align: right;
+  font-size: 14px;
+  color: #666;
+  white-space: nowrap;
+}
+
+.logo-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: center;
+}
+
+.school-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.area-info {
+  font-size: 13px;
+  color: #666;
+}
+
+#header-area-display {
+  font-weight: bold;
+  color: #000;
+}
+
+.paper-header h1 { 
+  font-size: 22px; 
+  color: #333; 
+  text-align: center;
+  font-weight: bold;
+}
+.header-info { text-align: right; font-size: 14px; color: #666; }
+.divider { margin: 0 10px; color: #ccc; }
+
+.section-title {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.badge {
+  background: #999; color: #fff; padding: 2px 6px; border-radius: 2px; font-size: 11px;
+  white-space: nowrap;
+}
+
+.current-area { 
+  font-size: 14px; 
+  font-weight: bold; 
+  color: #4a90e2;
+  animation: pulseGlow 1.5s ease-in-out infinite;
+}
+
+.current-area.selected {
+  color: #000;
+  animation: none;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    color: #4a90e2;
+    text-shadow: 0 0 0 rgba(74, 144, 226, 0);
+    transform: scale(1);
+  }
+  50% {
+    color: #1e40af;
+    text-shadow: 0 0 8px rgba(74, 144, 226, 0.8);
+    transform: scale(1.05);
+  }
+}
+
+.checklist-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.checklist-table th { background: #f5f5f5; font-weight: 600; padding: 6px; border: 1px solid #999; }
+.checklist-table td { padding: 6px; border: 1px solid #999; text-align: center; }
+
+.section-header td { background: #999999; color: #fff; text-align: left; font-weight: bold; padding: 5px 6px; }
+
+.sig-wrap {
+  display: inline-block; width: 70px; height: 24px;
+  border-bottom: 1px solid #000; vertical-align: bottom; position: relative;
+}
+.signature {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  max-width: 100%; max-height: 150%; display: none;
+}
+
+.action-bar { margin-top: 40px; text-align: center; }
+#printBtn {
+  background: #00b894; color: #fff; border: none; padding: 12px 30px;
+  font-size: 16px; border-radius: 30px; cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,184,148,0.3);
+}
+
+/* 인쇄 설정 */
+@media print {
+  * { margin: 0; padding: 0; }
+  .top-header, .control-bar, .action-bar { display: none !important; }
+  body { background: #fff; color: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .main-content { padding: 0; min-height: auto; }
+  .paper { 
+    box-shadow: none; 
+    width: 210mm; 
+    height: auto; 
+    padding: 15mm;
+    margin: 0; 
+    page-break-after: auto;
+  }
+  
+  /* 페이지 설정 */
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  
+  /* 테이블 압축 */
+  .checklist-table { font-size: 12px; }
+  .checklist-table th { padding: 6px 8px; background: #f5f5f5 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .checklist-table td { padding: 6px 8px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  
+  /* 헤더 압축 */
+  .paper-header { padding-bottom: 10px; margin-bottom: 15px; }
+  .paper-header h1 { font-size: 24px; margin-bottom: 5px; }
+  .header-info { font-size: 12px; }
+  
+  /* 섹션 타이틀 압축 */
+  .section-title { margin-bottom: 8px; }
+  .current-area { font-size: 14px; }
+  
+  /* 페이지 나누기 허용 */
+  .checklist-section { page-break-inside: auto; }
+  .section-header { page-break-after: auto; }
+  
+  /* 색상 유지 */
+  .badge { background: #999 !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .section-header td { background: #999999 !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* Custom Alert 모달 스타일 */
+.custom-alert-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.custom-alert-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.custom-alert-image {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.custom-alert-text {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.custom-alert-button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.custom-alert-button:hover {
+  background: #0056b3;
+}

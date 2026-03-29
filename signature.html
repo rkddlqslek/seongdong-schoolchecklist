@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>서명</title>
+  <!-- 구글 폰트 -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family:'Fira Sans',sans-serif;
+      background:#edf2f7;               /* 옅은 배경 */
+      display:flex;justify-content:center;align-items:center;
+      height:100vh;
+    }
+    /* 카드 */
+    .card{
+      background:#fff;
+      padding:22px 26px 28px;
+      border-radius:14px;
+      box-shadow:0 4px 18px rgba(0,0,0,.12);
+      width:380px;
+      max-width:93vw;
+      text-align:center;
+    }
+    h1{
+      font-size:18px;
+      margin-bottom:14px;
+      font-weight:600;
+      color:#2c3e50;
+    }
+    /* 서명 영역 */
+    #canvas{
+      border:2px dashed #a0aec0;
+      border-radius:8px;
+      width:100%; height:110px;
+      cursor: crosshair;    /* 10 19 = 핫스폿(x,y) */
+    }
+    /* 버튼 공통 */
+    .btn{
+      appearance:none;border:none;outline:none;
+      padding:8px 18px;margin:14px 4px 0;
+      border-radius:8px;font-size:15px;font-weight:600;
+      cursor:pointer;transition:all .15s;
+    }
+    .btn-confirm{background:#3498db;color:#fff;}
+    .btn-clear{background:#e2e8f0;color:#374151;}
+    .btn-cancel{background:#f56565;color:#fff;}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 3px 6px rgba(0,0,0,.12);}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>서명 입력</h1>
+    <canvas id="canvas" width="380" height="110"></canvas>
+    <div>
+      <button class="btn btn-confirm" id="okBtn">확인</button>
+      <button class="btn btn-clear"   id="clearBtn">다시쓰기</button>
+      <button class="btn btn-cancel"  id="cancelBtn">취소</button>
+    </div>
+  </div>
+
+  <script>
+    /* ───────── 캔버스 드로잉 ───────── */
+    const canvas = document.getElementById('canvas');
+    const ctx     = canvas.getContext('2d');
+    let drawing   = false;
+
+    const getXY = e=>{
+      const rect = canvas.getBoundingClientRect();
+      return { x:e.clientX - rect.left, y:e.clientY - rect.top };
+    };
+
+    canvas.addEventListener('mousedown',e=>{
+      drawing = true;
+      const {x,y}=getXY(e);
+      ctx.beginPath(); ctx.moveTo(x,y);
+    });
+   // signature.html <script> 내 드로잉 코드 수정
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    canvas.addEventListener('mousemove', e => {
+      if (!drawing) return;
+      const { x, y } = getXY(e);
+      ctx.lineWidth   = 3;           // 선 굵기
+      ctx.lineJoin    = 'round';
+      ctx.lineCap     = 'round';
+      ctx.strokeStyle = '#000';      // 진한 검은색
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    });
+
+    canvas.addEventListener('mouseup',()=>drawing=false);
+    canvas.addEventListener('mouseout',()=>drawing=false);
+
+    /* ───────── 버튼 동작 ───────── */
+    document.getElementById('okBtn').onclick = ()=>{
+      try{
+        const dataURL = canvas.toDataURL();
+        console.log('popup: generated dataURL length=', dataURL.length);
+        if(window.opener){
+          console.log('popup: window.opener exists');
+          if(typeof window.opener.receiveSignature==='function'){
+            console.log('popup: calling window.opener.receiveSignature()');
+            window.opener.receiveSignature(dataURL);
+          } else {
+            console.warn('popup: window.opener.receiveSignature is not a function');
+          }
+        } else {
+          console.warn('popup: window.opener is not available (maybe blocked)');
+        }
+      }catch(err){ console.error(err); }
+      window.close();
+    };
+
+    document.getElementById('cancelBtn').onclick = ()=>window.close();
+    document.getElementById('clearBtn').onclick  = ()=>{
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+    };
+  </script>
+</body>
+</html>
