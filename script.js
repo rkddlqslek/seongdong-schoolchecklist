@@ -397,6 +397,7 @@ function renderChecklist(area, building, floor) {
   const locationInfo = getLocationInfo(area, building, floor);
   document.getElementById("header-location-display").textContent = locationInfo;
   const group = groupForArea(area);
+  document.body.dataset.checklistGroup = group;
   console.log(`renderChecklist: area="${area}" building="${building}" floor="${floor}" -> group="${group}"`);
   const tbody = document.getElementById("checklist-body");
   tbody.innerHTML = "";
