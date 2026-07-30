@@ -315,55 +315,36 @@ body { font-family: 'Fira Sans', 'Malgun Gothic', sans-serif; background: #f4f4f
 @media print {
   * { margin: 0; padding: 0; }
   .top-header, .control-bar, .action-bar { display: none !important; }
-  html, body {
-    width: auto;
-    min-height: 0;
-    background: #fff;
-    color: #000;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-  body::before { display: none !important; content: none !important; }
-  .main-content { display: block; padding: 0; min-height: 0; }
+  body { background: #fff; color: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .main-content { padding: 0; min-height: auto; }
   .paper { 
     box-shadow: none; 
-    border-radius: 0;
-    width: 100%;
-    min-height: 0;
+    width: 210mm;
     height: auto; 
-    padding: 0;
+    padding: 15mm;
     margin: 0; 
     page-break-after: auto;
   }
   
   /* 페이지 설정 */
   @page {
-    size: A4 portrait;
-    margin: 8mm;
+    size: A4;
+    margin: 0;
   }
   
   /* 테이블 압축 */
-  .checklist-table { font-size: 11px; table-layout: fixed; }
-  .checklist-table th { padding: 4px 5px; background: #f5f5f5 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .checklist-table td { padding: 4px 5px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .checklist-table thead { display: table-header-group; }
-  .checklist-table tr { break-inside: avoid; page-break-inside: avoid; }
-  .checklist-table select {
-    padding: 2px !important;
-    font: inherit;
-    background: #fff;
-  }
-  .checklist-table input { font: inherit; }
+  .checklist-table { font-size: 12px; }
+  .checklist-table th { padding: 6px 8px; background: #f5f5f5 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .checklist-table td { padding: 6px 8px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   
   /* 헤더 압축 */
-  .paper-header { padding-bottom: 6px; margin-bottom: 8px; }
-  .paper-header h1 { font-size: 20px; margin-bottom: 4px; }
-  .header-top-row { gap: 10px; padding-bottom: 6px; }
+  .paper-header { padding-bottom: 10px; margin-bottom: 15px; }
+  .paper-header h1 { font-size: 24px; margin-bottom: 5px; }
   .header-info { font-size: 12px; }
   
   /* 섹션 타이틀 압축 */
-  .section-title { margin-bottom: 5px; }
-  .current-area { font-size: 12px; }
+  .section-title { margin-bottom: 8px; }
+  .current-area { font-size: 14px; }
   
   /* 페이지 나누기 허용 */
   .checklist-section { page-break-inside: auto; }
@@ -374,6 +355,11 @@ body { font-family: 'Fira Sans', 'Malgun Gothic', sans-serif; background: #f4f4f
   .section-header td { background: #999999 !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
   /* 항목이 많은 건축물 체크리스트는 A4 한 장에 맞춘다. */
+  body[data-checklist-group="건축물"] .paper {
+    min-height: 0;
+    padding: 8mm;
+    border-radius: 0;
+  }
   body[data-checklist-group="건축물"] .paper-header {
     padding-bottom: 3px;
     margin-bottom: 4px;
@@ -410,6 +396,7 @@ body { font-family: 'Fira Sans', 'Malgun Gothic', sans-serif; background: #f4f4f
   body[data-checklist-group="건축물"] .checklist-table {
     font-size: 9.5px;
     line-height: 1.15;
+    table-layout: fixed;
   }
   body[data-checklist-group="건축물"] .checklist-table th,
   body[data-checklist-group="건축물"] .checklist-table td {
