@@ -357,68 +357,68 @@ body { font-family: 'Fira Sans', 'Malgun Gothic', sans-serif; background: #f4f4f
   /* 항목이 많은 건축물 체크리스트는 A4 한 장에 맞춘다. */
   body[data-checklist-group="건축물"] .paper {
     min-height: 0;
-    padding: 8mm;
+    padding: 10mm;
     border-radius: 0;
   }
   body[data-checklist-group="건축물"] .paper-header {
-    padding-bottom: 3px;
-    margin-bottom: 4px;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
   }
   body[data-checklist-group="건축물"] .paper-header h1 {
-    font-size: 18px;
-    margin-bottom: 2px;
+    font-size: 20px;
+    margin-bottom: 3px;
   }
   body[data-checklist-group="건축물"] .header-top-row {
-    gap: 6px;
-    padding-bottom: 3px;
+    gap: 8px;
+    padding-bottom: 4px;
   }
   body[data-checklist-group="건축물"] .logo-icon {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
   }
-  body[data-checklist-group="건축물"] .header-left { gap: 6px; }
-  body[data-checklist-group="건축물"] .school-name { font-size: 12px; }
+  body[data-checklist-group="건축물"] .header-left { gap: 8px; }
+  body[data-checklist-group="건축물"] .school-name { font-size: 13px; }
   body[data-checklist-group="건축물"] .area-info,
   body[data-checklist-group="건축물"] .header-right { font-size: 10px; }
   body[data-checklist-group="건축물"] .sig-wrap {
-    width: 50px;
-    height: 18px;
+    width: 55px;
+    height: 20px;
   }
   body[data-checklist-group="건축물"] .section-title {
-    gap: 5px;
-    margin-bottom: 3px;
+    gap: 6px;
+    margin-bottom: 4px;
   }
   body[data-checklist-group="건축물"] .badge {
     padding: 1px 4px;
-    font-size: 9px;
-  }
-  body[data-checklist-group="건축물"] .current-area { font-size: 11px; }
-  body[data-checklist-group="건축물"] .checklist-table {
     font-size: 9.5px;
+  }
+  body[data-checklist-group="건축물"] .current-area { font-size: 12px; }
+  body[data-checklist-group="건축물"] .checklist-table {
+    font-size: 10.5px;
     line-height: 1.15;
     table-layout: fixed;
   }
   body[data-checklist-group="건축물"] .checklist-table th,
   body[data-checklist-group="건축물"] .checklist-table td {
-    padding: 3px 4px;
+    padding: 4px 5px;
   }
   body[data-checklist-group="건축물"] .checklist-table td:first-child {
-    padding-left: 5px !important;
+    padding-left: 6px !important;
   }
   body[data-checklist-group="건축물"] .checklist-table select {
-    height: 21px;
-    padding: 0 1px !important;
+    height: 23px;
+    padding: 0 2px !important;
     border-radius: 2px !important;
-    font-size: 9.5px;
+    font-size: 10.5px;
     line-height: 1;
   }
   body[data-checklist-group="건축물"] .checklist-table input {
-    height: 17px;
-    font-size: 9.5px;
+    height: 19px;
+    font-size: 10.5px;
     line-height: 1;
   }
   body[data-checklist-group="건축물"] .section-header td {
-    padding: 2px 4px;
+    padding: 3px 5px;
   }
 }
 
